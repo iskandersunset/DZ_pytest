@@ -13,7 +13,9 @@ class Processors_page(Base):
         self.driver = driver
 
     # Locators============================
-    price_slider = ".css-zuxqkm"
+    price_slider = "#app-filter > div > div.css-13fb20f.ely0d2x0 > div.css-1fvvpk9.ef363jm0 > " \
+                   "div > div.e1514ezh0.css-1tn5u6r.elalcrq0 > div.e10glbzz0.css-1px02k5.ehx9ljd0 > " \
+                   "div.css-zuxqkm.e2e6zdw0 > div > div.rc-slider-handle.rc-slider-handle-1"
     price_right = ""
 
     # Getters=============================
