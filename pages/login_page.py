@@ -43,7 +43,7 @@ class Login_page(Base):
         print("Click Citi Chelyabinsk")
 
     # Methods =============================
-    def authorization(self):
+    def geolocation(self):
         self.driver.maximize_window()
         self.driver.get(self.base_url)
         self.get_current_url()
