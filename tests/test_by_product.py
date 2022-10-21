@@ -14,7 +14,7 @@ def test_by_product_1(set_group):
     print('START TEST 1')
 
     login = Login_page(driver)
-    login.authorization()
+    login.geolocation()
 
     print('FINISH TEST 1')
     time.sleep(10)
