@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -13,23 +15,32 @@ class Processors_page(Base):
         self.driver = driver
 
     # Locators============================
-    price_slider = "#app-filter > div > div.css-13fb20f.ely0d2x0 > div.css-1fvvpk9.ef363jm0 > " \
-                   "div > div.e1514ezh0.css-1tn5u6r.elalcrq0 > div.e10glbzz0.css-1px02k5.ehx9ljd0 > " \
-                   "div.css-zuxqkm.e2e6zdw0 > div > div.rc-slider-handle.rc-slider-handle-1"
-    price_right = ""
+    price_slider_left = "/html/body/div[3]/div[2]/main/section/div[1]/div[2]/div/div/div[2]" \
+                        "/div[2]/div/div[3]/div[2]/div[3]/div/div[4]"
+    price_slider_right = "/html/body/div[3]/div[2]/main/section/div[1]/div[2]/div/div/div[2]" \
+                         "/div[2]/div/div[3]/div[2]/div[3]/div/div[5]"
 
     # Getters=============================
 
-    def get_price_slider(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.price_slider)))
+    def get_price_slider_left(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.price_slider_left)))
+
+    def get_price_slider_right(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.price_slider_right)))
 
     # Actions =============================
-    def click_price_slider(self):
+    def move_price_slider_left(self):
         move = ActionChains(self.driver)
-        move.click_and_hold(self.get_price_slider()).move_by_offset(20, 0).release().perform()
-        print("Ползунок тащим левый")
+        move.click_and_hold(self.get_price_slider_left()).move_by_offset(50, 0).release().perform()
+        print(" === Левый ползунок тащим === ")
+
+    def move_price_slider_right(self):
+        move = ActionChains(self.driver)
+        move.click_and_hold(self.get_price_slider_right()).move_by_offset(-20, 0).release().perform()
+        print(" === Правый ползунок тащим === ")
 
     # Methods =============================
     def price_set(self):
-        self.click_price_slider()
-    #     self.click_select_product_1()
+        self.move_price_slider_left()
+        time.sleep(3)
+        self.move_price_slider_right()

@@ -1,4 +1,3 @@
-from termcolor import colored, cprint
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -37,19 +36,19 @@ class Login_page(Base):
     # Actions =============================
     def click_close_button(self):
         self.get_close_button().click()
-        cprint(" === Click close registration === " * 10, 'yellow', 'on_blue')
+        print(" === Click close registration === " * 10)
 
     def click_geo_menu(self):
         self.get_geo_menu().click()
-        cprint(" === Click Menu Geolocation === ", 'yellow', 'on_blue')
+        print(" === Click Menu Geolocation === ")
 
     def click_citi_select(self):
         self.get_citi_select().click()
-        cprint(" === Click Citi Chelyabinsk === ", 'yellow', 'on_blue')
+        print(" === Click Citi Chelyabinsk === ")
 
     def click_catalog_proc(self):
         self.get_catalog_proc().click()
-        cprint(" === Click Processors === ", 'yellow', 'on_blue')
+        print(" === Click Processors === ")
 
     # Methods =============================
     def geolocation(self):
