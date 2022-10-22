@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+from selenium.common import WebDriverException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -28,14 +29,17 @@ stealth(driver,
         )
 
 base_url = 'https://www.citilink.ru/catalog/processory/'
-close_button = "Tooltip__close-mini"  # Закрыть прделожение регистрации
+close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
+proc_brand = "//input[@id='intel']"
 
 driver.get(base_url)
-WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CLASS_NAME, close_button))).click()
-time.sleep(3)
-proc_num_core = "//input[@id='intel']"
-move = driver.find_element(By.XPATH, proc_num_core)
-driver.execute_script("arguments[0].scrollIntoView();", move)
-time.sleep(3)
-move.click()
+driver.refresh()
+time.sleep(5)
+
+
+element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, close_button)))
+checkbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, proc_brand)))
+driver.execute_script("arguments[0].scrollIntoView();", element)
+
+checkbox.click()
 
