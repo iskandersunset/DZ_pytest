@@ -28,7 +28,11 @@ stealth(driver,
         )
 
 base_url = 'https://www.citilink.ru/catalog/processory/'
+close_button = "Tooltip__close-mini"  # Закрыть прделожение регистрации
+
 driver.get(base_url)
+WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.CLASS_NAME, close_button))).click()
+time.sleep(3)
 proc_num_core = "//input[@id='intel']"
 move = driver.find_element(By.XPATH, proc_num_core)
 driver.execute_script("arguments[0].scrollIntoView();", move)
