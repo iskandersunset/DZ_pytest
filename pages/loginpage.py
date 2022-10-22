@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 
 
-class Login_page(Base):
+class LoginPage(Base):
     base_url = 'https://citilink.ru/'
 
     def __init__(self, driver):

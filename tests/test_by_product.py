@@ -4,8 +4,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium_stealth import stealth
-from pages.login_page import Login_page
-from pages.processors_page import Processors_page
+from pages.loginpage import LoginPage
+from pages.processorspage import ProcessorsPage
 
 
 # @pytest.mark.run(order=1)
@@ -31,10 +31,10 @@ def test_by_processor(set_group):
 
     print(' === START TEST ====')
 
-    login = Login_page(driver)
+    login = LoginPage(driver)
     login.geolocation()
 
-    pp = Processors_page(driver)
+    pp = ProcessorsPage(driver)
     pp.price_set()
 
     print(' === FINISH TEST === ')
