@@ -39,7 +39,7 @@ time.sleep(5)
 
 element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, close_button)))
 checkbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, proc_brand)))
-driver.execute_script("arguments[0].scrollIntoView();", element)
+driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);", checkbox)
 
 checkbox.click()
 
