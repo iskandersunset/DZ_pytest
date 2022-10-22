@@ -38,6 +38,6 @@ def test_by_processor(set_group):
     pp.price_set()
 
     print(' === FINISH TEST === ')
-    time.sleep(5)
-    driver.quit()
+    time.sleep(15)
+    # driver.quit()
 

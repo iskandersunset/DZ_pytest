@@ -19,6 +19,8 @@ class Processors_page(Base):
                         "/div[2]/div/div[3]/div[2]/div[3]/div/div[4]"
     price_slider_right = "/html/body/div[3]/div[2]/main/section/div[1]/div[2]/div/div/div[2]" \
                          "/div[2]/div/div[3]/div[2]/div[3]/div/div[5]"
+    proc_brand = "//input[@id='intel']"
+    proc_num_core = "//*[@id='intel']"
 
     # Getters=============================
 
@@ -27,6 +29,12 @@ class Processors_page(Base):
 
     def get_price_slider_right(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.price_slider_right)))
+
+    def get_proc_brand(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.proc_brand)))
+
+    def get_proc_num_core(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.proc_num_core)))
 
     # Actions =============================
     def move_price_slider_left(self):
@@ -39,8 +47,18 @@ class Processors_page(Base):
         move.click_and_hold(self.get_price_slider_right()).move_by_offset(-20, 0).release().perform()
         print(" === Правый ползунок тащим === ")
 
+    def checkbox_proc_brand(self):
+        self.get_proc_brand().click()
+        print(" === Выбираем бренд === ")
+
+    def checkbox_proc_num_core(self):
+        self.get_proc_num_core().click()
+        print(" === Выбираем бренд === ")
+
     # Methods =============================
     def price_set(self):
         self.move_price_slider_left()
         time.sleep(3)
         self.move_price_slider_right()
+        self.checkbox_proc_brand()
+        self.checkbox_proc_num_core()
