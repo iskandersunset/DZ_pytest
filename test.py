@@ -28,18 +28,25 @@ stealth(driver,
         fix_hairline=True,
         )
 
-base_url = 'https://www.citilink.ru/catalog/processory/'
-close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
-proc_brand = "//input[@id='intel']"
+base_url = 'https://www.citilink.ru/catalog/processory/?pf=discount.any%2Crating.any&price_min=3750&price_max=' \
+           '44023&pprice_min=3750&pprice_max=44023&f=discount.any%2Crating.any%2C8554_2612&sorting=price_desc'
+# close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
+# proc_brand = "//input[@id='intel']"
 
 driver.get(base_url)
 driver.refresh()
-time.sleep(5)
 
 
-element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, close_button)))
-checkbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, proc_brand)))
-driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);", checkbox)
+# element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, close_button)))
+# checkbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, proc_brand)))
+# driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);", checkbox)
+# checkbox.click()
+# time.sleep(7)
+# driver.execute_script("window.scrollTo(0, -document.body.scrollHeight);")  # В начало страницы
+# sort_by_price = "//div[@data-alias='price']"
+# price = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, sort_by_price)))
+# price.click()
 
-checkbox.click()
-
+products = driver.find_elements(By.CLASS_NAME, "ProductCardHorizontal__title")
+print('Считали списки товаров и цен\n', '--' * 20)
+print(products[0].text)
