@@ -36,6 +36,7 @@ def test_by_processor(set_group):
 
     pp = ProcessorsPage(driver)
     pp.price_set()
+    pp.select_products()
 
     print(' === FINISH TEST === ')
     time.sleep(15)
