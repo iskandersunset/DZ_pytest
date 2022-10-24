@@ -21,6 +21,9 @@ class ProcessorsPage(Base):
                          "/div[2]/div/div[3]/div[2]/div[3]/div/div[5]"
     proc_brand = "//input[@id='intel']"
     proc_num_core = "//input[@id='8554_2612']"
+    sort_by_price = "//div[@data-alias='price']"
+    product_name = "ProductCardHorizontal__title"
+
 
     # Getters=============================
 
@@ -36,35 +39,52 @@ class ProcessorsPage(Base):
     def get_proc_num_core(self):
         return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, self.proc_num_core)))
 
+    def get_sort_by_price(self):
+        return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, self.sort_by_price)))
+
+    def get_product_name(self):
+        return self.driver.find_elements(By.CLASS_NAME, self.product_name)[0]
+
     # Actions =============================
     def move_price_slider_left(self):
         move = ActionChains(self.driver)
         move.click_and_hold(self.get_price_slider_left()).move_by_offset(50, 0).release().perform()
-        print(" === Левый ползунок тащим === ")
+        print(" === Move left slide === ")
 
     def move_price_slider_right(self):
         move = ActionChains(self.driver)
         move.click_and_hold(self.get_price_slider_right()).move_by_offset(-20, 0).release().perform()
-        print(" === Правый ползунок тащим === ")
+        print(" === Move right slider === ")
 
     def checkbox_proc_brand(self):
         self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);",
                                    self.get_proc_brand())
         self.get_proc_brand().click()
-        print(" === Выбираем бренд === ")
+        print(" === Choice brand === ")
 
     def checkbox_proc_num_core(self):
         self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);",
                                    self.get_proc_num_core())
         self.get_proc_num_core().click()
-        print(" === Выбираем бренд === ")
+        print(" === Choose the number of cores === ")
+
+    def click_sort_by_price(self):
+        self.driver.execute_script("window.scrollTo(0, -document.body.scrollTop);")
+        self.get_sort_by_price().click()
+        self.get_sort_by_price().click()
+        print(" === Click sort by price === ")
 
     # Methods =============================
     def price_set(self):
         self.move_price_slider_left()
         time.sleep(3)
         self.move_price_slider_right()
-        time.sleep(5)
+        time.sleep(3)
         self.checkbox_proc_brand()
-        time.sleep(5)
+        time.sleep(3)
         self.checkbox_proc_num_core()
+        time.sleep(3)
+        self.click_sort_by_price()
+
+    def select_products(self):
+        print(self.get_product_name().text)
