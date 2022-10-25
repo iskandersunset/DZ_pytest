@@ -22,8 +22,8 @@ class ProcessorsPage(Base):
     proc_brand = "//input[@id='intel']"
     proc_num_core = "//input[@id='8554_2612']"
     sort_by_price = "//div[@data-alias='price']"
-    product_name = "ProductCardHorizontal__title"
-
+    product = "ProductCardHorizontal__title"
+    button_add_cart = "ProductCardHorizontal__button_car"
 
     # Getters=============================
 
@@ -42,8 +42,12 @@ class ProcessorsPage(Base):
     def get_sort_by_price(self):
         return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, self.sort_by_price)))
 
-    def get_product_name(self):
-        return self.driver.find_elements(By.CLASS_NAME, self.product_name)[0]
+    '''Выбираем самый дорогой товар, список отсортирован по убыванию цены.'''
+    def get_product(self):
+        return self.driver.find_elements(By.CLASS_NAME, self.product)[0]
+
+    def get_button_add_cat(self):
+        return self.driver.find_elements(By.CLASS_NAME, self.button_add_cart)[0]
 
     # Actions =============================
     def move_price_slider_left(self):
@@ -60,7 +64,7 @@ class ProcessorsPage(Base):
         self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);",
                                    self.get_proc_brand())
         self.get_proc_brand().click()
-        print(" === Choice brand === ")
+        print(" === Choose a brand === ")
 
     def checkbox_proc_num_core(self):
         self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);",
@@ -85,6 +89,3 @@ class ProcessorsPage(Base):
         self.checkbox_proc_num_core()
         time.sleep(3)
         self.click_sort_by_price()
-
-    def select_products(self):
-        print(self.get_product_name().text)
