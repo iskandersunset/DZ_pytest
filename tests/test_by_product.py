@@ -38,4 +38,3 @@ def test_by_processor(set_group):
     print(' === FINISH TEST === ')
     time.sleep(15)
     # driver.quit()
-
