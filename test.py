@@ -28,8 +28,7 @@ stealth(driver,
         fix_hairline=True,
         )
 
-base_url = 'https://www.citilink.ru/catalog/processory/?pf=discount.any%2Crating.any&price_min=3750&price_max=' \
-           '44023&pprice_min=3750&pprice_max=44023&f=discount.any%2Crating.any%2C8554_2612&sorting=price_desc'
+base_url = 'https://www.citilink.ru/catalog/processory/?pf=discount.any%2Crating.any%2Cintel%2C8554_2612&price_min=3750&price_max=34164&pprice_min=3750&pprice_max=26513&f=discount.any%2Crating.any%2Cintel%2C8554_2612&sorting=price_desc'
 # close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
 # proc_brand = "//input[@id='intel']"
 
@@ -46,7 +45,17 @@ driver.refresh()
 # sort_by_price = "//div[@data-alias='price']"
 # price = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, sort_by_price)))
 # price.click()
+# button_add_cart = "ProductCardHorizontal__button_desktop"
 
-products = driver.find_elements(By.CLASS_NAME, "ProductCardHorizontal__title")
-print('Считали списки товаров и цен\n', '--' * 20)
-print(products[0].text)
+product = "ProductCardHorizontal__title"
+product_price = "ProductCardHorizontal__price_current-price"
+id_product = "ProductCardHorizontal__meta"
+get_product_price = driver.find_elements(By.CLASS_NAME, product_price)
+get_product = driver.find_elements(By.CLASS_NAME, product)
+get_id_product = driver.find_elements(By.CLASS_NAME, id_product)
+
+
+print(get_product[0].text)
+print(get_id_product[0].text)
+print(int(get_product_price[0].text.replace(' ', '')))
+driver.quit()
