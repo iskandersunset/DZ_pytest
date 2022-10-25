@@ -14,8 +14,6 @@ def test_by_processor(set_group):
 
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
-    # options.add_argument("--headless")
-
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
     driver = webdriver.Chrome(options=options, service=s)
@@ -36,7 +34,6 @@ def test_by_processor(set_group):
 
     pp = ProcessorsPage(driver)
     pp.price_set()
-    pp.select_products()
 
     print(' === FINISH TEST === ')
     time.sleep(15)
