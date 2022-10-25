@@ -22,8 +22,10 @@ class ProcessorsPage(Base):
     proc_brand = "//input[@id='intel']"
     proc_num_core = "//input[@id='8554_2612']"
     sort_by_price = "//div[@data-alias='price']"
-    product = "ProductCardHorizontal__title"
-    button_add_cart = "ProductCardHorizontal__button_car"
+    product = "ProductCardHorizontal__title"  # Наименование товара
+    id_product = "ProductCardHorizontal__meta"  # ID товара
+    product_price = "ProductCardHorizontal__button_desktop"  # Цена товара
+    button_add_cart = "ProductCardHorizontal__button_desktop"
 
     # Getters=============================
 
@@ -46,7 +48,13 @@ class ProcessorsPage(Base):
     def get_product(self):
         return self.driver.find_elements(By.CLASS_NAME, self.product)[0]
 
-    def get_button_add_cat(self):
+    def get_id_product(self):
+        return self.driver.find_elements(By.CLASS_NAME, self.id_product)[0]
+
+    def get_product_price(self):
+        return self.driver.find_elements(By.CLASS_NAME, self.product_price)[0]
+
+    def get_button_add_cart(self):
         return self.driver.find_elements(By.CLASS_NAME, self.button_add_cart)[0]
 
     # Actions =============================
@@ -78,6 +86,10 @@ class ProcessorsPage(Base):
         self.get_sort_by_price().click()
         print(" === Click sort by price === ")
 
+    def click_get_button_add_cart(self):
+        self.get_button_add_cart().click()
+        print(" === Click Add to Cart === ")
+
     # Methods =============================
     def price_set(self):
         self.move_price_slider_left()
@@ -89,3 +101,5 @@ class ProcessorsPage(Base):
         self.checkbox_proc_num_core()
         time.sleep(3)
         self.click_sort_by_price()
+        time.sleep(2)
+        self.click_get_button_add_cart()
