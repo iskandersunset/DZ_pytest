@@ -12,7 +12,7 @@ from pages.processorspage import ProcessorsPage
 
 
 @pytest.mark.run()
-def test_by_processor(browser):
+def test_by_processor(browser, set_up):
 
     lp = LoginPage(browser)
     lp.geolocation()
@@ -20,6 +20,4 @@ def test_by_processor(browser):
     pp = ProcessorsPage(browser)
     pp.price_set()
 
-    print(' === FINISH TEST === ')
     time.sleep(15)
-    # driver.quit()
