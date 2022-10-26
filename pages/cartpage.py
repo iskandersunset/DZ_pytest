@@ -23,6 +23,16 @@ class CartPage(BasePage):
     def get_page_title(self):
         return self.find_element(self.page_title)
 
+    def get_product_cart(self):
+        return self.find_element(self.product_cart)
+
+    def getid_product_cart(self):
+        return self.find_element(self.id_product_cart)
+
+    def get_product_price_cart(self):
+        return self.find_element(self.product_price_cart)
+
+
     def get_id_product_cart(self):
         return self.find_element(self.id_product_cart)
 
