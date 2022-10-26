@@ -57,14 +57,12 @@ class LoginPage(BasePage):
     # Methods =============================
     def geolocation(self):
         self.driver.maximize_window()
-        self.driver.get(self.base_url)
-        self.get_current_url()
+        self.go_to_site()
         self.assert_url(self.base_url)
         self.click_close_button()
         self.click_geo_menu()
         self.click_citi_select()
         self.get_screenshot()
         self.click_catalog_proc()
-        self.get_current_url()
         self.assert_url('https://www.citilink.ru/catalog/processory/')
         self.get_screenshot()
