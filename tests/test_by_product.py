@@ -2,6 +2,7 @@ import time
 
 import pytest
 
+from pages.cartpage import CartPage
 # import pytest as pytest
 # from selenium import webdriver
 # from selenium.webdriver.chrome.service import Service
@@ -18,6 +19,9 @@ def test_by_processor(browser, set_up):
     lp.geolocation()
 
     pp = ProcessorsPage(browser)
-    pp.price_set()
+    pp.choose_product()
+
+    cp = CartPage(browser)
+    cp.confirm_order()
 
     time.sleep(15)

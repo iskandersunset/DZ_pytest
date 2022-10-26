@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -22,6 +24,7 @@ def browser():
             fix_hairline=True,
             )
     yield driver
+    time.sleep(5)
     driver.quit()
 
 

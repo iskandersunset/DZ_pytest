@@ -23,12 +23,13 @@ class ProcessorsPage(BasePage):
                          "/div[2]/div/div[3]/div[2]/div[3]/div/div[5]"
     proc_brand = "//input[@id='intel']"
     proc_brand_check = "data-meta-is-selected"
-    proc_num_core = "//input[@id='8554_2612']"
+    proc_num_core_check = "//input[@id='8554_2612']"
     sort_by_price = "//div[@data-alias='price']"
     product = "ProductCardHorizontal__title"  # Наименование товара
     id_product = "ProductCardHorizontal__meta"  # ID товара
     product_price = "ProductCardHorizontal__button_desktop"  # Цена товара
     button_add_cart = "ProductCardHorizontal__button_desktop"
+    cart_button = "HeaderMenu__buttons_basket"
 
     # Getters=============================
 
@@ -42,7 +43,7 @@ class ProcessorsPage(BasePage):
         return WebDriverWait(self.driver, 30).until(ec.presence_of_element_located((By.XPATH, self.proc_brand)))
 
     def get_proc_num_core(self):
-        return WebDriverWait(self.driver, 30).until(ec.presence_of_element_located((By.XPATH, self.proc_num_core)))
+        return WebDriverWait(self.driver, 30).until(ec.presence_of_element_located((By.XPATH, self.proc_num_core_check)))
 
     def get_sort_by_price(self):
         return WebDriverWait(self.driver, 30).until(ec.presence_of_element_located((By.XPATH, self.sort_by_price)))
@@ -59,6 +60,9 @@ class ProcessorsPage(BasePage):
 
     def get_button_add_cart(self):
         return self.driver.find_elements(By.CLASS_NAME, self.button_add_cart)[0]
+
+    def get_cart_button(self):
+        return self.driver.find_elements(By.CLASS_NAME, self.cart_button)[0]
 
     # Actions =============================
     '''Move left slider'''
@@ -125,23 +129,39 @@ class ProcessorsPage(BasePage):
             print(" === Click sort by price === ")
 
     '''Adding the selected product to the cart'''
-    def click_get_button_add_cart(self):
+    def click_button_add_cart(self):
         try:
             self.get_button_add_cart().click()
             print(" === Click Add to Cart === ")
-            time.sleep(2)
+            time.sleep(3)
+            webdriver.ActionChains(self.driver).send_keys(Keys.ESCAPE).perform()
+            print('=== Type Escape Button ===')
         except (StaleElementReferenceException, ElementClickInterceptedException):
             self.get_button_add_cart().click()
             print(" --- StaleElementReferenceException --- ")
             print(" === Click Add to Cart === ")
-            time.sleep(2)  # Просто, для того чтобы увидеть окно всплывающее:)
-        webdriver.ActionChains(self.driver).send_keys(Keys.ESCAPE).perform()
+            time.sleep(3)  # Просто, для того чтобы увидеть окно всплывающее:)
+            webdriver.ActionChains(self.driver).send_keys(Keys.ESCAPE).perform()
+            print('=== Type Escape Button ===')
+
+    def click_cart_button(self):
+        try:
+            self.get_cart_button().click()
+            print(" === Click to Cart Button === ")
+            time.sleep(2)
+        except (StaleElementReferenceException, ElementClickInterceptedException):
+            self.get_cart_button().click()
+            print(" --- StaleElementReferenceException --- ")
+            print(" === Click Add to Cart === ")
+            time.sleep(2)
+            print(" === Click to Cart Button === ")
 
     # Methods =============================
-    def price_set(self):
+    def choose_product(self):
         self.move_price_slider_left()
         self.move_price_slider_right()
         self.checkbox_proc_brand()
         self.checkbox_proc_num_core()
         self.click_sort_by_price()
-        self.click_get_button_add_cart()
+        self.click_button_add_cart()
+        self.click_cart_button()
