@@ -55,7 +55,7 @@ class LoginPage(BasePage):
         print(" === Click Processors === ")
 
     # Methods =============================
-    def geolocation(self):
+    def choose_category(self):
         self.driver.maximize_window()
         self.go_to_site()
         self.assert_url(self.base_url)
