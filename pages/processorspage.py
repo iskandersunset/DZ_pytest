@@ -1,15 +1,16 @@
 import time
 
+from selenium import webdriver
 from selenium.common import ElementClickInterceptedException, StaleElementReferenceException
-from selenium.webdriver import ActionChains
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-from base.base_class import Base
+from base.baseapp import BasePage
 
 
-class ProcessorsPage(Base):
+class ProcessorsPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -60,12 +61,14 @@ class ProcessorsPage(Base):
         return self.driver.find_elements(By.CLASS_NAME, self.button_add_cart)[0]
 
     # Actions =============================
+    '''Move left slider'''
     def move_price_slider_left(self):
         move = ActionChains(self.driver)
         move.click_and_hold(self.get_price_slider_left()).move_by_offset(50, 0).release().perform()
         time.sleep(3)
         print(" === Move left slide === ")
 
+    '''Move right slider'''
     def move_price_slider_right(self):
         try:
             move = ActionChains(self.driver)
@@ -74,9 +77,10 @@ class ProcessorsPage(Base):
         except ElementClickInterceptedException:
             move = ActionChains(self.driver)
             move.click_and_hold(self.get_price_slider_right()).move_by_offset(-20, 0).release().perform()
-            print('ElementClickInterceptedException')
+            print(' --- ElementClickInterceptedException --- ')
             print(" === Move right slider === ")
 
+    '''Checkbox Choose a brand'''
     def checkbox_proc_brand(self):
         try:
             self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight "
@@ -88,9 +92,10 @@ class ProcessorsPage(Base):
             self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight "
                                        "/ 4);", self.get_proc_brand())
             self.get_proc_brand().click()
-            print(" === ElementClickInterceptedException === ")
+            print(" --- ElementClickInterceptedException --- ")
             print(" === Choose a brand === ")
 
+    '''Checkbox Choose the number of cores'''
     def checkbox_proc_num_core(self):
         try:
             self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight "
@@ -102,9 +107,10 @@ class ProcessorsPage(Base):
             self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight "
                                        "/ 4);", self.get_proc_num_core())
             self.get_proc_num_core().click()
-            print(" === ElementClickInterceptedException === ")
+            print(" --- ElementClickInterceptedException --- ")
             print(" === Choose the number of cores === ")
 
+    '''Sort by price descending'''
     def click_sort_by_price(self):
         try:
             self.driver.execute_script("window.scrollTo(0, -document.body.scrollTop);")
@@ -115,17 +121,21 @@ class ProcessorsPage(Base):
             self.driver.execute_script("window.scrollTo(0, -document.body.scrollTop);")
             self.get_sort_by_price().click()
             self.get_sort_by_price().click()
-            print(" === StaleElementReferenceException === ")
+            print(" --- StaleElementReferenceException --- ")
             print(" === Click sort by price === ")
 
+    '''Adding the selected product to the cart'''
     def click_get_button_add_cart(self):
         try:
             self.get_button_add_cart().click()
             print(" === Click Add to Cart === ")
-        except StaleElementReferenceException:
+            time.sleep(2)
+        except (StaleElementReferenceException, ElementClickInterceptedException):
             self.get_button_add_cart().click()
-            print(" === StaleElementReferenceException === ")
+            print(" --- StaleElementReferenceException --- ")
             print(" === Click Add to Cart === ")
+            time.sleep(2)  # Просто, для того чтобы увидеть окно всплывающее:)
+        webdriver.ActionChains(self.driver).send_keys(Keys.ESCAPE).perform()
 
     # Methods =============================
     def price_set(self):

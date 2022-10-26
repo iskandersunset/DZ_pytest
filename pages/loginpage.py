@@ -3,11 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-from base.base_class import Base
+from base.baseapp import BasePage
 
 
-class LoginPage(Base):
-    base_url = 'https://citilink.ru/'
+class LoginPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -60,12 +59,12 @@ class LoginPage(Base):
         self.driver.maximize_window()
         self.driver.get(self.base_url)
         self.get_current_url()
+        self.assert_url(self.base_url)
         self.click_close_button()
         self.click_geo_menu()
         self.click_citi_select()
+        self.get_screenshot()
         self.click_catalog_proc()
         self.get_current_url()
-        self.get_screenshot()
         self.assert_url('https://www.citilink.ru/catalog/processory/')
         self.get_screenshot()
-        # self.assert_word(self.get_main_word(), 'PRODUCTS')

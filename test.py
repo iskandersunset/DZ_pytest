@@ -2,12 +2,12 @@ import time
 
 from selenium import webdriver
 from selenium.common import WebDriverException
-from selenium.webdriver import ActionChains
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium_stealth import stealth
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 
 # @pytest.mark.run(order=1)
 s = Service('C:/_teach/resource/chromedriver.exe')  # Путь на работе
@@ -28,12 +28,14 @@ stealth(driver,
         fix_hairline=True,
         )
 
-base_url = 'https://www.citilink.ru/catalog/processory/?pf=discount.any%2Crating.any%2Cintel%2C8554_2612&price_min=3750&price_max=34164&pprice_min=3750&pprice_max=26513&f=discount.any%2Crating.any%2Cintel%2C8554_2612&sorting=price_desc'
+base_url = 'https://www.citilink.ru/catalog/processory/?pf=discount.any%2Crating.any%2Cintel%2C8554_2612&price_min=' \
+           '3750&price_max=34164&pprice_min=3750&pprice_max=26513&f=' \
+           'discount.any%2Crating.any%2Cintel%2C8554_2612&sorting=price_desc'
 # close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
 # proc_brand = "//input[@id='intel']"
 
 driver.get(base_url)
-driver.refresh()
+# driver.refresh()
 
 
 # element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, close_button)))
@@ -50,12 +52,17 @@ driver.refresh()
 product = "ProductCardHorizontal__title"
 product_price = "ProductCardHorizontal__price_current-price"
 id_product = "ProductCardHorizontal__meta"
+button_add_cart = "ProductCardHorizontal__button_desktop"
 get_product_price = driver.find_elements(By.CLASS_NAME, product_price)
 get_product = driver.find_elements(By.CLASS_NAME, product)
 get_id_product = driver.find_elements(By.CLASS_NAME, id_product)
+get_add_cart = driver.find_elements(By.CLASS_NAME, button_add_cart)
 
 
-print(get_product[0].text)
-print(get_id_product[0].text)
-print(int(get_product_price[0].text.replace(' ', '')))
+# print(get_product[0].text)
+# print(get_id_product[0].text)
+# print(int(get_product_price[0].text.replace(' ', '')))
+# get_add_cart[0].click()
+time.sleep(2)
+webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 driver.quit()
