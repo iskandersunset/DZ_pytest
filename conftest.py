@@ -35,7 +35,6 @@ def set_up():
     print(" >>> Finish TEST <<< ")
 
 
-
 @pytest.fixture(scope="module")
 def set_group():
     print(" >>> Enter System <<< ")
