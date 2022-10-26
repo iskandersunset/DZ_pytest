@@ -9,6 +9,7 @@ def browser():
     s = Service('C:/_teach/resource/chromedriver.exe')  # Путь на работе
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
+    options.add_argument('log-level=3')
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
     driver = webdriver.Chrome(options=options, service=s)
@@ -24,11 +25,12 @@ def browser():
     driver.quit()
 
 
-@pytest.fixture()
+@pytest.fixture(scope='module')
 def set_up():
     print(" >>> Start TEST <<< ")
     yield
     print(" >>> Finish TEST <<< ")
+
 
 
 @pytest.fixture(scope="module")
