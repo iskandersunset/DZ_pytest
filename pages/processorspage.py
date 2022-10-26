@@ -22,9 +22,8 @@ class CategoryPage(BasePage):
     price_slider_right = (By.XPATH, "/html/body/div[3]/div[2]/main/section/div[1]/div[2]/div/div/div[2]"
                                     "/div[2]/div/div[3]/div[2]/div[3]/div/div[5]")
     proc_brand = (By.XPATH, "//input[@id='intel']")
-    proc_brand_check = (By.CLASS_NAME, "data-meta-is-selected")
+    proc_brand_check = (By.XPATH, "//input[@name='intel']")
     proc_num_core_check = (By.XPATH, "//input[@id='8554_2612']")
-    sort_by_price = (By.XPATH, "//div[@data-alias='price']")
     sort_by_price = (By.CLASS_NAME, "SortingList__item")
     product = (By.CLASS_NAME, "ProductCardHorizontal__title")  # Наименование товара
     id_product = (By.CLASS_NAME, "ProductCardHorizontal__meta")  # ID товара
@@ -169,7 +168,9 @@ class CategoryPage(BasePage):
         self.move_price_slider_left()
         self.move_price_slider_right()
         self.checkbox_proc_brand()
+        time.sleep(3)
         self.checkbox_proc_num_core()
+        time.sleep(3)
         self.click_sort_by_price()
         self.click_button_add_cart()
         self.click_cart_button()
