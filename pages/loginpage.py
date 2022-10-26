@@ -14,24 +14,24 @@ class LoginPage(BasePage):
 
     # Locators============================
 
-    close_button = "Tooltip__close-mini"  # Закрыть прделожение регистрации
-    geo_menu = "MainHeader__city"  # Выбираем меню геолокации
-    citi_select = "//a[@data-search='челябинск']"
-    catalog_proc = "//a[@href='catalog/processory/']"
+    close_button = (By.CLASS_NAME, "Tooltip__close-mini")  # Закрыть прделожение регистрации
+    geo_menu = (By.CLASS_NAME, "MainHeader__city")  # Выбираем меню геолокации
+    citi_select = (By.XPATH, "//a[@data-search='челябинск']")
+    catalog_proc = (By.XPATH, "//a[@href='catalog/processory/']")
 
     # Getters=============================
 
     def get_close_button(self):
-        return WebDriverWait(self.driver, 30).until(ec.element_to_be_clickable((By.CLASS_NAME, self.close_button)))
+        return self.find_element(self.close_button)
 
     def get_geo_menu(self):
-        return WebDriverWait(self.driver, 30).until(ec.element_to_be_clickable((By.CLASS_NAME, self.geo_menu)))
+        return self.find_element(self.geo_menu)
 
     def get_citi_select(self):
-        return WebDriverWait(self.driver, 30).until(ec.element_to_be_clickable((By.XPATH, self.citi_select)))
+        return self.find_element(self.citi_select)
 
     def get_catalog_proc(self):
-        return WebDriverWait(self.driver, 30).until(ec.element_to_be_clickable((By.XPATH, self.catalog_proc)))
+        return self.find_element(self.catalog_proc)
 
     # Actions =============================
     def click_close_button(self):
