@@ -9,19 +9,16 @@ from pages.cartpage import CartPage
 # from selenium_stealth import stealth
 
 from pages.loginpage import LoginPage
-from pages.processorspage import ProcessorsPage
+from pages.processorspage import CategoryPage
 
 
-@pytest.mark.run()
 def test_by_processor(browser, set_up):
 
     lp = LoginPage(browser)
-    lp.geolocation()
+    lp.choose_category()
 
-    pp = ProcessorsPage(browser)
-    pp.choose_product()
+    cgp = CategoryPage(browser)
+    cgp.choose_product()
 
     cp = CartPage(browser)
     cp.confirm_order()
-
-    time.sleep(15)
