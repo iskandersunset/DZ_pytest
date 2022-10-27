@@ -54,11 +54,10 @@ class LoginPage(BasePage):
 
     # Methods =============================
     def choose_category(self):
-        self.go_to_site()
-        self.assert_url(self.base_url)
         self.click_close_button()
         self.click_geo_menu()
         self.click_citi_select()
+        self.assert_word(self.get_geo_menu(), 'Челябинск')
         self.get_screenshot()
         self.click_catalog_proc()
         self.assert_url('https://www.citilink.ru/catalog/processory/')
