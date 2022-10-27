@@ -56,7 +56,6 @@ class LoginPage(BasePage):
 
     # Methods =============================
     def choose_category(self):
-        self.driver.maximize_window()
         self.go_to_site()
         self.assert_url(self.base_url)
         self.click_close_button()
