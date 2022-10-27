@@ -18,29 +18,36 @@ class CartPage(BasePage):
     product_cart = (By.CLASS_NAME, "ProductCardForBasket__name")
     id_product_cart = (By.CLASS_NAME, "ProductCardForBasket__vendor-code")
     product_price_cart = (By.CLASS_NAME, "ProductCardForBasket__price-current")
+    button_submit = (By.CLASS_NAME, "OrderFinalPrice__order-button")
 
     '''Getters'''
     def get_page_title(self):
+        print(self.find_element(self.page_title).text)
         return self.find_element(self.page_title)
 
     def get_product_cart(self):
+        print(self.find_element(self.product_cart).text)
         return self.find_element(self.product_cart)
 
-    def getid_product_cart(self):
+    def get_id_product_cart(self):
+        print(self.find_element(self.id_product_cart).text)
         return self.find_element(self.id_product_cart)
 
     def get_product_price_cart(self):
+        print(self.find_element(self.product_price_cart).text)
         return self.find_element(self.product_price_cart)
 
-
-    def get_id_product_cart(self):
-        return self.find_element(self.id_product_cart)
+    def get_button_submit(self):
+        return self.find_element(self.button_submit)
 
     '''Actions'''
+    def click_button_submit(self):
+        self.get_button_submit().click()
+        print(" === Click Go to checkout === ")
 
     '''Methods'''
-
     def confirm_order(self):
         self.assert_url('https://www.citilink.ru/order/')
         self.assert_word(self.get_page_title(), 'Корзина')
+        self.click_button_submit()
 
