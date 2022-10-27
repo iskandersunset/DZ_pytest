@@ -29,15 +29,18 @@ stealth(driver,
         fix_hairline=True,
         )
 
-base_url = 'https://www.citilink.ru/catalog/processory/?pf=discount.any%2Crating.any&price_min=3750&price_max=' \
-           '44023&pprice_min=3750&pprice_max=44023&f=discount.any%2Crating.any%2C8554_2612&sorting=price_desc'
+base_url = 'https://www.citilink.ru/catalog/processory/'
 # close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
-# proc_brand = "//input[@id='intel']"
+proc_brand = "//input[@id='intel']"
+proc_brand = (By.XPATH, "//input[@id='intel']")
+geo_menu = (By.CLASS_NAME, "MainHeader__city")  # Выбираем меню геолокации
+title_page_proc = (By.CLASS_NAME, "Subcategory__title")  # Выбираем меню геолокации
+sort_by_price_check = (By.CLASS_NAME, "SortingList__svg_desc")
+sort_by_price = (By.XPATH, "//div[@data-alias='price']")
+
 
 driver.get(base_url)
 driver.refresh()
-
-
 # element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, close_button)))
 # checkbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, proc_brand)))
 # driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);", checkbox)
@@ -45,9 +48,27 @@ driver.refresh()
 # time.sleep(7)
 # driver.execute_script("window.scrollTo(0, -document.body.scrollHeight);")  # В начало страницы
 # sort_by_price = "//div[@data-alias='price']"
-# price = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, sort_by_price)))
+sort = WebDriverWait(driver, 10).until(EC.presence_of_element_located(sort_by_price))
+sort.click()
+sort.click()
+time.sleep(2)
+price = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(sort_by_price_check))
+
 # price.click()
 
-products = driver.find_elements(By.CLASS_NAME, "ProductCardHorizontal__title")
-print('Считали списки товаров и цен\n', '--' * 20)
-print(products[0].text)
+# products = driver.find_element(By.CLASS_NAME, "Subcategory__title")
+# print(products.text)
+# time.sleep(5)
+# driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight / 4);", price)
+# print(price.is_selected())
+
+time.sleep(5)
+assert price
+print('Сортировка по убыванию цены реализована')
+
+
+
+
+driver.quit()
+
+

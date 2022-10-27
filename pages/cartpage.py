@@ -22,19 +22,15 @@ class CartPage(BasePage):
 
     '''Getters'''
     def get_page_title(self):
-        print(self.find_element(self.page_title).text)
         return self.find_element(self.page_title)
 
     def get_product_cart(self):
-        print(self.find_element(self.product_cart).text)
         return self.find_element(self.product_cart)
 
     def get_id_product_cart(self):
-        print(self.find_element(self.id_product_cart).text)
         return self.find_element(self.id_product_cart)
 
     def get_product_price_cart(self):
-        print(self.find_element(self.product_price_cart).text)
         return self.find_element(self.product_price_cart)
 
     def get_button_submit(self):

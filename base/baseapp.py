@@ -1,4 +1,6 @@
 import datetime
+import time
+
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -28,7 +30,7 @@ class BasePage:
     def assert_word(self, word, result):
         value_word = word.text
         assert value_word == result
-        print(" === Good value WORD === ")
+        print(" === Good assert WORD ===>> ", result)
 
     """Method Screenshot"""
 
@@ -43,7 +45,23 @@ class BasePage:
     def assert_url(self, result):
         get_url = self.driver.current_url
         assert get_url == result
-        print(" === Good value URL === ")
+        print(" === Good assert URL === ")
+
+    def assert_selected(self, checkbox):
+        try:
+            time.sleep(3)
+            assert checkbox.is_selected()
+            print(" === CheckBox Selected === ")
+        except AssertionError:
+            print(" === Troubles, troubles === ")
+
+    def assert_locator(self, locator):
+        try:
+            time.sleep(2)
+            assert locator
+            print(" === Locator found === ")
+        except AssertionError:
+            print(" === Troubles, troubles === ")
 
     def go_to_site(self):
         return self.driver.get(self.base_url)

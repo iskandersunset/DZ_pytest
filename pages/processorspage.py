@@ -22,14 +22,18 @@ class CategoryPage(BasePage):
     proc_brand = (By.XPATH, "//input[@id='intel']")
     proc_brand_check = (By.XPATH, "//input[@name='intel']")
     proc_num_core_check = (By.XPATH, "//input[@id='8554_2612']")
-    sort_by_price = (By.CLASS_NAME, "SortingList__item")
+    sort_by_price = (By.XPATH, "//div[@data-alias='price']")
+    sort_by_price_check = (By.CLASS_NAME, "SortingList__svg_desc")
     product = (By.CLASS_NAME, "ProductCardHorizontal__title")  # Наименование товара
     id_product = (By.CLASS_NAME, "ProductCardHorizontal__meta")  # ID товара
     product_price = (By.CLASS_NAME, "ProductCardHorizontal__button_desktop")  # Цена товара
     button_add_cart = (By.CLASS_NAME, "ProductCardHorizontal__button_desktop")
     cart_button = (By.CLASS_NAME, "HeaderMenu__buttons_basket")
+    title_page_proc = (By.CLASS_NAME, "Subcategory__title")  # Выбираем меню геолокации
 
     # Getters=============================
+    def get_title_page_proc(self):
+        return self.find_element(self.title_page_proc)
 
     def get_price_slider_left(self):
         return self.find_element(self.price_slider_left)
@@ -45,6 +49,9 @@ class CategoryPage(BasePage):
 
     def get_sort_by_price(self):
         return self.find_element(self.sort_by_price)
+
+    def get_sort_by_price_check(self):
+        return self.find_element(self.sort_by_price_check)
 
     '''Выбираем самый дорогой товар, список отсортирован по убыванию цены.'''
 
@@ -108,14 +115,14 @@ class CategoryPage(BasePage):
             self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight "
                                        "/ 4);", self.get_proc_num_core())
             self.get_proc_num_core().click()
-            print(" === Choose the number of cores === ")
+            print(" === Choose the number of cores 12 === ")
         except ElementClickInterceptedException:
             self.driver.refresh()
             self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, -window.innerHeight "
                                        "/ 4);", self.get_proc_num_core())
             self.get_proc_num_core().click()
             print(" --- ElementClickInterceptedException --- ")
-            print(" === Choose the number of cores === ")
+            print(" === Choose the number of cores 12 === ")
 
     '''Sort by price descending'''
 
@@ -147,7 +154,7 @@ class CategoryPage(BasePage):
             print(" === Click Add to Cart === ")
             time.sleep(3)  # Просто, для того чтобы увидеть окно всплывающее:)
             webdriver.ActionChains(self.driver).send_keys(Keys.ESCAPE).perform()
-            print('=== Type Escape Button ===')
+            print(' === Type Escape Button ===')
 
     def click_cart_button(self):
         try:
@@ -165,10 +172,13 @@ class CategoryPage(BasePage):
     def choose_product(self):
         self.move_price_slider_left()
         self.move_price_slider_right()
+        time.sleep(2)
+        self.get_screenshot()
         self.checkbox_proc_brand()
-        time.sleep(3)
+        self.assert_selected(self.get_proc_brand())
         self.checkbox_proc_num_core()
-        time.sleep(3)
+        self.assert_selected(self.get_proc_num_core())
         self.click_sort_by_price()
+        self.assert_locator(self.get_sort_by_price_check())
         self.click_button_add_cart()
         self.click_cart_button()

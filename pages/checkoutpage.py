@@ -24,7 +24,6 @@ class CheckoutPage(BasePage):
     def get_page_title(self):
         return self.find_element(self.page_title)
 
-
     '''Actions'''
     def click_button_submit(self):
         self.get_button_submit().click()
