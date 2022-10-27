@@ -23,6 +23,7 @@ def browser():
             renderer="Intel Iris OpenGL Engine",
             fix_hairline=True,
             )
+    driver.maximize_window()
     yield driver
     time.sleep(5)
     driver.quit()
@@ -40,4 +41,3 @@ def set_group():
     print(" >>> Enter System <<< ")
     yield
     print(" >>> Exit System <<< ")
-
