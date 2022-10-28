@@ -41,9 +41,16 @@ class CartPage(BasePage):
         self.get_button_submit().click()
         print(" === Click Go to checkout === ")
 
+    def product_cart_text(self):
+        return self.get_product_cart().text
+
+    def product_id_cart_text(self):
+        return self.get_id_product_cart().text.replace('Код товара: ', '')
+
+    def product_price_cart_text(self):
+        return self.get_product_price_cart().text.replace(' ', '')
+
     '''Methods'''
     def confirm_order(self):
-        self.assert_url('https://www.citilink.ru/order/')
-        self.assert_word(self.get_page_title(), 'Корзина')
         self.click_button_submit()
 

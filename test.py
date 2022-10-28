@@ -29,7 +29,7 @@ stealth(driver,
         fix_hairline=True,
         )
 
-base_url = 'https://www.citilink.ru/catalog/processory/'
+base_url = 'https://www.citilink.ru/order/'
 # close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
 proc_brand = "//input[@id='intel']"
 proc_brand = (By.XPATH, "//input[@id='intel']")
@@ -37,6 +37,12 @@ geo_menu = (By.CLASS_NAME, "MainHeader__city")  # Выбираем меню ге
 title_page_proc = (By.CLASS_NAME, "Subcategory__title")  # Выбираем меню геолокации
 sort_by_price_check = (By.CLASS_NAME, "SortingList__svg_desc")
 sort_by_price = (By.XPATH, "//div[@data-alias='price']")
+
+page_title = (By.CLASS_NAME, "Basket__title__text")
+product_cart = (By.CLASS_NAME, "ProductCardForBasket__name")
+id_product_cart = (By.CLASS_NAME, "ProductCardForBasket__vendor-code")
+product_price_cart = (By.CLASS_NAME, "ProductCardForBasket__price-current")
+button_submit = (By.CLASS_NAME, "OrderFinalPrice__order-button")
 
 
 driver.get(base_url)
@@ -48,13 +54,12 @@ driver.refresh()
 # time.sleep(7)
 # driver.execute_script("window.scrollTo(0, -document.body.scrollHeight);")  # В начало страницы
 # sort_by_price = "//div[@data-alias='price']"
-sort = WebDriverWait(driver, 10).until(EC.presence_of_element_located(sort_by_price))
-sort.click()
-sort.click()
-time.sleep(2)
-price = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(sort_by_price_check))
-
-# price.click()
+# sort = WebDriverWait(driver, 10).until(EC.presence_of_element_located(sort_by_price))
+# sort.click()
+# sort.click()
+# time.sleep(2)
+price = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(product_cart))
+print(price.text)
 
 # products = driver.find_element(By.CLASS_NAME, "Subcategory__title")
 # print(products.text)

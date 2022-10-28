@@ -26,7 +26,7 @@ class CategoryPage(BasePage):
     sort_by_price_check = (By.CLASS_NAME, "SortingList__svg_desc")
     product = (By.CLASS_NAME, "ProductCardHorizontal__title")  # Наименование товара
     id_product = (By.CLASS_NAME, "ProductCardHorizontal__meta")  # ID товара
-    product_price = (By.CLASS_NAME, "ProductCardHorizontal__button_desktop")  # Цена товара
+    product_price = (By.CLASS_NAME, "ProductCardHorizontal__price_current-price")  # Цена товара
     button_add_cart = (By.CLASS_NAME, "ProductCardHorizontal__button_desktop")
     cart_button = (By.CLASS_NAME, "HeaderMenu__buttons_basket")
     title_page_proc = (By.CLASS_NAME, "Subcategory__title")  # Выбираем меню геолокации
@@ -168,7 +168,17 @@ class CategoryPage(BasePage):
             time.sleep(2)
             print(" === Click to Cart Button === ")
 
+    def product_text(self):
+        return self.get_product().text
+
+    def id_product_text(self):
+        return self.get_id_product().text.replace('Код товара: ', '')
+
+    def product_price_text(self):
+        return self.get_product_price().text.replace(' ', '')
+
     # Methods =============================
+
     def choose_product(self):
         self.move_price_slider_left()
         self.move_price_slider_right()
@@ -180,5 +190,8 @@ class CategoryPage(BasePage):
         self.assert_selected(self.get_proc_num_core())
         self.click_sort_by_price()
         self.assert_locator(self.get_sort_by_price_check())
+        print('=== Выбран следующий товар: ===')
+        print('Наимаенование:', self.product_text(), 'ID: ', self.id_product_text(), 'Цена: ', self.product_price_text())
         self.click_button_add_cart()
-        self.click_cart_button()
+
+
