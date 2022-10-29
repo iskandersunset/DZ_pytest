@@ -58,7 +58,6 @@ class BasePage:
 
     def assert_selected(self, checkbox):
         try:
-            time.sleep(3)
             assert checkbox.is_selected()
             print(" === CheckBox Selected === ")
         except AssertionError:
@@ -66,7 +65,6 @@ class BasePage:
 
     def assert_locator(self, locator):
         try:
-            time.sleep(2)
             assert locator
             print(" === Locator found === ")
         except AssertionError:

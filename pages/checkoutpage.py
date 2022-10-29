@@ -43,43 +43,43 @@ class CheckoutPage(BasePage):
     '''Getters'''
 
     def get_page_title(self):
-        return self.find_element(self.page_title)
+        return self.driver.find_element(*self.page_title)
 
     def get_button_delivery(self):
-        return self.find_element(self.button_delivery)
+        return self.driver.find_element(*self.button_delivery)
 
     def get_product_checkout(self):
-        return self.find_element(self.product_checkout)
+        return self.driver.find_element(*self.product_checkout)
 
     def get_product_price_checkout(self):
-        return self.find_element(self.product_price_checkout)
+        return self.driver.find_element(*self.product_price_checkout)
 
     def get_total(self):
-        return self.find_element(self.total)
+        return self.driver.find_element(*self.total)
 
     def get_delivery_price(self):
-        return self.find_element(self.delivery_price)
+        return self.driver.find_element(*self.delivery_price)
 
     def get_input_citi(self):
-        return self.find_element(self.input_citi)
+        return self.driver.find_element(*self.input_citi)
 
     def get_input_street(self):
-        return self.find_element(self.input_street)
+        return self.driver.find_element(*self.input_street)
 
     def get_input_house_number(self):
-        return self.find_element(self.input_house_number)
+        return self.driver.find_element(*self.input_house_number)
 
     def get_first_name(self):
-        return self.find_element(self.first_name)
+        return self.driver.find_element(*self.first_name)
 
     def get_last_name(self):
-        return self.find_element(self.last_name)
+        return self.driver.find_element(*self.last_name)
 
     def get_phone(self):
-        return self.find_element(self.phone)
+        return self.driver.find_element(*self.phone)
 
     def get_button_checkout(self):
-        return self.find_element(self.button_checkout)
+        return self.driver.find_element(*self.button_checkout)
 
     '''Actions'''
     def citi_text(self):
@@ -147,7 +147,6 @@ class CheckoutPage(BasePage):
     def confirm_checkout(self):
         self.assert_word(self.get_page_title(), 'Оформление заказа')
         self.click_delivery()
-        time.sleep(3)
         print(self.citi_text())
         self.field_street(self.street)
         self.field_housenum(self.housenum)
@@ -155,5 +154,5 @@ class CheckoutPage(BasePage):
         self.field_first_name(self.firstname)
         self.field_last_name(self.lastname)
         print(self.product_checkout_text(), self.product_price_checkout_text(), self.total_text())
-        self.click_button_checkout()
+        # self.click_button_checkout()
         print('Как бы нажали оформить заказ')

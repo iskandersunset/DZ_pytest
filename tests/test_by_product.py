@@ -6,12 +6,9 @@ from pages.cartpage import CartPage
 from pages.checkoutpage import CheckoutPage
 from pages.loginpage import LoginPage
 from pages.categorypage import CategoryPage
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 def test_by_processor(driver, setup):
-
     driver.implicitly_wait(10)
 
     login_page = LoginPage(driver)
@@ -23,7 +20,6 @@ def test_by_processor(driver, setup):
     category_page.assert_word(category_page.get_title_page_proc(), 'Процессоры')
     category_page.choose_product()
 
-    product_value = category_page.product_text()
     id_product_value = category_page.id_product_text()
     product_price_value = category_page.product_price_text()
 
@@ -34,9 +30,6 @@ def test_by_processor(driver, setup):
     print(cart_page.get_current_url())
     cart_page.assert_word(cart_page.get_page_title(), 'Корзина')
 
-    # assert product_value in cp.product_cart_text()  # Пока остановился. Строку парсить надо. Врезали слот зачем-то)
-    # print('Good assertion', product_value)
-
     assert id_product_value == cart_page.product_id_cart_text()
     print('Good assertion', id_product_value)
     assert product_price_value == cart_page.product_price_cart_text().replace('₽', '')
@@ -45,7 +38,4 @@ def test_by_processor(driver, setup):
 
     checkout_page = CheckoutPage(driver)
     checkout_page.confirm_checkout()
-
-
-if __name__ == "__main__":
-    sys.exit(pytest.main(['-s', '-v']))
+    checkout_page.get_screenshot()
