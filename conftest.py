@@ -1,20 +1,29 @@
 import time
 
 import pytest
-from selenium import webdriver
+import warnings
+
+#from selenium import webdriver
+from selenium.webdriver import Chrome, ChromeOptions
+
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 from selenium_stealth import stealth
 
 
 @pytest.fixture(scope="session")
-def browser():
-    s = Service('C:/_teach/resource/chromedriver.exe')  # Путь на работе
-    options = webdriver.ChromeOptions()
+def driver():
+    service = Service('C:/_teach/resource/chromedriver.exe')  # Путь на работе
+
+    options = ChromeOptions()
     options.add_argument("start-maximized")
     options.add_argument('log-level=3')
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
-    driver = webdriver.Chrome(options=options, service=s)
+
+    driver = Chrome(options=options, service=service)
+    driver.maximize_window()
+
     stealth(driver,
             languages=["ru-RU", "ru"],
             vendor="Google Inc.",
@@ -23,21 +32,22 @@ def browser():
             renderer="Intel Iris OpenGL Engine",
             fix_hairline=True,
             )
-    driver.maximize_window()
+
     yield driver
-    time.sleep(5)
+
+    time.sleep(25)
     driver.quit()
 
 
 @pytest.fixture(scope='module')
-def set_up():
+def setup():
     print(" >>> Start TEST <<< ")
     yield
     print(" >>> Finish TEST <<< ")
 
 
 @pytest.fixture(scope="module")
-def set_group():
+def setup_group():
     print(" >>> Enter System <<< ")
     yield
     print(" >>> Exit System <<< ")
