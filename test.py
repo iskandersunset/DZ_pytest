@@ -32,7 +32,6 @@ stealth(driver,
 base_url = 'https://www.citilink.ru/order/'
 # close_button = "//*[@id='app-filter']/div/div[2]/div[2]/div/div[3]/div[3]/div[5]/div[1]/div"
 proc_brand = "//input[@id='intel']"
-proc_brand = (By.XPATH, "//input[@id='intel']")
 geo_menu = (By.CLASS_NAME, "MainHeader__city")  # Выбираем меню геолокации
 title_page_proc = (By.CLASS_NAME, "Subcategory__title")  # Выбираем меню геолокации
 sort_by_price_check = (By.CLASS_NAME, "SortingList__svg_desc")
@@ -68,7 +67,7 @@ print(price.text)
 # print(price.is_selected())
 
 time.sleep(5)
-assert price
+# assert price
 print('Сортировка по убыванию цены реализована')
 
 
