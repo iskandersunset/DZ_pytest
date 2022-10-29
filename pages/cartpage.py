@@ -14,7 +14,7 @@ class CartPage(BasePage):
 
     '''Locators'''
 
-    page_title = (By.CLASS_NAME, "Basket__title__text")
+    page_title = (By.XPATH, "/html/body/div[2]/div/main/div[1]/div/div[2]")
     product_cart = (By.CLASS_NAME, "ProductCardForBasket__name")
     id_product_cart = (By.CLASS_NAME, "ProductCardForBasket__vendor-code")
     product_price_cart = (By.CLASS_NAME, "ProductCardForBasket__price-current")
