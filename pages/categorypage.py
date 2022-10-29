@@ -33,42 +33,42 @@ class CategoryPage(BasePage):
 
     # Getters=============================
     def get_title_page_proc(self):
-        return self.find_element(self.title_page_proc)
+        return self.driver.find_element(self.title_page_proc)
 
     def get_price_slider_left(self):
-        return self.find_element(self.price_slider_left)
+        return self.driver.find_element(self.price_slider_left)
 
     def get_price_slider_right(self):
-        return self.find_element(self.price_slider_right)
+        return self.driver.find_element(self.price_slider_right)
 
     def get_proc_brand(self):
-        return self.find_element(self.proc_brand)
+        return self.driver.find_element(self.proc_brand)
 
     def get_proc_num_core(self):
-        return self.find_element(self.proc_num_core_check)
+        return self.driver.find_element(self.proc_num_core_check)
 
     def get_sort_by_price(self):
-        return self.find_element(self.sort_by_price)
+        return self.driver.find_element(self.sort_by_price)
 
     def get_sort_by_price_check(self):
-        return self.find_element(self.sort_by_price_check)
+        return self.driver.find_element(self.sort_by_price_check)
 
     '''Выбираем самый дорогой товар, список отсортирован по убыванию цены.'''
 
     def get_product(self):
-        return self.find_elements(self.product)[0]
+        return self.driver.find_elements(self.product)[0]
 
     def get_id_product(self):
-        return self.find_elements(self.id_product)[0]
+        return self.driver.find_elements(self.id_product)[0]
 
     def get_product_price(self):
-        return self.find_elements(self.product_price)[0]
+        return self.driver.find_elements(self.product_price)[0]
 
     def get_button_add_cart(self):
-        return self.find_elements(self.button_add_cart)[0]
+        return self.driver.find_elements(self.button_add_cart)[0]
 
     def get_cart_button(self):
-        return self.find_element(self.cart_button)
+        return self.driver.find_element(self.cart_button)
 
     # Actions =============================
     '''Move left slider'''
