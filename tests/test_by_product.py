@@ -1,29 +1,51 @@
+import sys
+
+import pytest
+
 from pages.cartpage import CartPage
+from pages.checkoutpage import CheckoutPage
 from pages.loginpage import LoginPage
 from pages.categorypage import CategoryPage
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def test_by_processor(browser, set_up):
+def test_by_processor(driver, setup):
 
-    lp = LoginPage(browser)
-    lp.go_to_site()
-    lp.assert_url('https://www.citilink.ru/')
-    lp.choose_category()
+    driver.implicitly_wait(10)
 
-    cgp = CategoryPage(browser)
-    cgp.assert_word(cgp.get_title_page_proc(), 'Процессоры')
-    cgp.choose_product()
-    product_value = cgp.product_text()
-    id_product_value = cgp.id_product_text()
-    product_price_value = cgp.product_price_text()
-    cgp.click_cart_button()
+    login_page = LoginPage(driver)
+    login_page.go_to_site()
+    login_page.assert_url('https://www.citilink.ru/')
+    login_page.choose_category()
 
-    cp = CartPage(browser)
-    cp.assert_url('https://www.citilink.ru/order/')
-    print(cp.get_current_url())
-    # cp.assert_word(cp.get_page_title, 'Корзина')
-    assert id_product_value == cp.product_id_cart_text()
-    assert product_price_value == cp.product_price_cart_text().replace('₽', '')
-    # cp.confirm_order()
+    category_page = CategoryPage(driver)
+    category_page.assert_word(category_page.get_title_page_proc(), 'Процессоры')
+    category_page.choose_product()
+
+    product_value = category_page.product_text()
+    id_product_value = category_page.id_product_text()
+    product_price_value = category_page.product_price_text()
+
+    category_page.click_cart_button()
+
+    cart_page = CartPage(driver)
+    cart_page.assert_url('https://www.citilink.ru/order/')
+    print(cart_page.get_current_url())
+    cart_page.assert_word(cart_page.get_page_title(), 'Корзина')
+
+    # assert product_value in cp.product_cart_text()  # Пока остановился. Строку парсить надо. Врезали слот зачем-то)
+    # print('Good assertion', product_value)
+
+    assert id_product_value == cart_page.product_id_cart_text()
+    print('Good assertion', id_product_value)
+    assert product_price_value == cart_page.product_price_cart_text().replace('₽', '')
+    print('Good assertion', product_price_value)
+    cart_page.confirm_order()
+
+    checkout_page = CheckoutPage(driver)
+    checkout_page.confirm_checkout()
+
+
+if __name__ == "__main__":
+    sys.exit(pytest.main(['-s', '-v']))
