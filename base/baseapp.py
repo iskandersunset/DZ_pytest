@@ -32,7 +32,7 @@ class BasePage:
     def get_screenshot(self):
         now_date = datetime.datetime.utcnow().strftime("%y.%m.%d.%H.%M.%S")
         name_screenshot = 'screenshot' + now_date + '.png'
-        self.driver.save_screenshot('C:\\Python\\DZ_pytest\\screen\\' + name_screenshot)
+        self.driver.save_screenshot('C:\\Phyton\\DZ_pytest\\screen\\' + name_screenshot)
         print(" === Screenshot Done === ")
 
     """Method Assert word"""

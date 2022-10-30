@@ -1,6 +1,7 @@
 import pytest
 
 from selenium.webdriver import Chrome, ChromeOptions
+from selenium import webdriver
 
 from selenium.webdriver.chrome.service import Service
 from selenium_stealth import stealth

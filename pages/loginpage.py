@@ -63,4 +63,5 @@ class LoginPage(BasePage):
 
         self.click_catalog_proc()
         self.assert_url('https://www.citilink.ru/catalog/processory/')
+
         self.get_screenshot()
