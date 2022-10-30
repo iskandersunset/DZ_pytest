@@ -10,11 +10,7 @@ from base.baseapp import BasePage
 
 class CategoryPage(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
-    # Locators============================
+    """ Locators=========================== """
     price_slider_left = (By.XPATH, "/html/body/div[3]/div[2]/main/section/div[1]/div[2]/div/div/div[2]"
                                    "/div[2]/div/div[3]/div[2]/div[3]/div/div[4]")
     price_slider_right = (By.XPATH, "/html/body/div[3]/div[2]/main/section/div[1]/div[2]/div/div/div[2]"
@@ -24,14 +20,19 @@ class CategoryPage(BasePage):
     proc_num_core_check = (By.XPATH, "//input[@id='8554_2612']")
     sort_by_price = (By.XPATH, "//div[@data-alias='price']")
     sort_by_price_check = (By.CLASS_NAME, "SortingList__svg_desc")
-    product = (By.CLASS_NAME, "ProductCardHorizontal__title")  # Наименование товара
+    product = (By.XPATH, "/html/body/div[3]/div[2]/main/section/div[1]/div[1]/div[3]/div[1]/section/div[1]/div[3]/a")  # Наименование товара
     id_product = (By.CLASS_NAME, "ProductCardHorizontal__meta")  # ID товара
     product_price = (By.CLASS_NAME, "ProductCardHorizontal__price_current-price")  # Цена товара
     button_add_cart = (By.CLASS_NAME, "ProductCardHorizontal__button_desktop")
     cart_button = (By.CLASS_NAME, "HeaderMenu__buttons_basket")
     title_page_proc = (By.CLASS_NAME, "Subcategory__title")  # Выбираем меню геолокации
 
-    # Getters=============================
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
+
+    '''# Getters============================='''
+
     def get_title_page_proc(self):
         return self.driver.find_element(*self.title_page_proc)
 
@@ -57,7 +58,7 @@ class CategoryPage(BasePage):
     '''Выбираем самый дорогой товар, список отсортирован по убыванию цены.'''
 
     def get_product(self):
-        return self.driver.find_elements(*self.product)[0]
+        return self.driver.find_element(*self.product)
 
     def get_id_product(self):
         return self.driver.find_elements(*self.id_product)[0]
@@ -71,7 +72,7 @@ class CategoryPage(BasePage):
     def get_cart_button(self):
         return self.driver.find_element(*self.cart_button)
 
-    # Actions =============================
+    '''# Actions ============================='''
     '''Move left slider'''
 
     def move_price_slider_left(self):
@@ -173,20 +174,20 @@ class CategoryPage(BasePage):
     def product_price_text(self):
         return self.get_product_price().text.replace(' ', '')
 
-    # Methods =============================
+    '''Methods ============================='''
 
     def choose_product(self):
         self.move_price_slider_left()
+        time.sleep(3)
         self.move_price_slider_right()
         self.get_screenshot()
         self.checkbox_proc_brand()
         self.assert_selected(self.get_proc_brand())
         self.checkbox_proc_num_core()
         self.assert_selected(self.get_proc_num_core())
+        time.sleep(3)
         self.click_sort_by_price()
-        self.assert_locator(self.get_sort_by_price_check())
         print('=== Выбран следующий товар: ===')
-        print('Наимаенование:', self.product_text(), 'ID: ', self.id_product_text(), 'Цена: ', self.product_price_text())
         self.click_button_add_cart()
-
+        print('Наименование:', self.product_text(), 'ID: ', self.id_product_text(), 'Цена: ', self.product_price_text())
 

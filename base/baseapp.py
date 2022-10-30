@@ -1,8 +1,4 @@
 import datetime
-import time
-
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Chrome
 
 
@@ -12,16 +8,7 @@ class BasePage:
         self.driver = driver
         self.base_url = 'https://www.citilink.ru/'
 
-        driver.implicitly_wait(10)
-
-    # def find_elements(self, locator, time=30):
-    #     return WebDriverWait(self.driver, time).until(EC.presence_of_all_elements_located(locator),
-    #                                                   message=f"Can't find elements by locator {locator}")
-    #
-    # def find_element(self, locator, time=30):
-    #     return WebDriverWait(self.driver, time).until(EC.presence_of_element_located(locator),
-    #                                                   message=f"Can't find element by locator {locator}")
-
+        driver.implicitly_wait(15)
 
     def should_be_on_page(self, locator):
         element = self.driver.find_element(locator)
@@ -32,14 +19,13 @@ class BasePage:
 
     def get_current_url(self):
         get_url = self.driver.current_url
-        print(" ======> Current URL " + get_url)
 
     """Method Assert word"""
 
     def assert_word(self, word, result):
         value_word = word.text
-        assert value_word == result
-        print(" === Good assert WORD ===>> ", result)
+        assert value_word == result, f"Word {result} does not match."
+        print('Good assert', value_word)
 
     """Method Screenshot"""
 
@@ -54,19 +40,18 @@ class BasePage:
     def assert_url(self, result):
         url = self.driver.current_url
         assert url == result, f"Wrong url: {url}"
-        print(" === Good assert URL === ")
+        print(" === Good assert URL === ", result)
 
     def assert_selected(self, checkbox):
         try:
-            assert checkbox.is_selected()
+            assert checkbox.is_selected(), f"Checkbox {checkbox} not checked."
             print(" === CheckBox Selected === ")
         except AssertionError:
             print(" === Troubles, troubles === ")
 
     def assert_locator(self, locator):
         try:
-            assert locator
-            print(" === Locator found === ")
+            assert locator, f"Element {locator} does not found."
         except AssertionError:
             print(" === Troubles, troubles === ")
 

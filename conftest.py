@@ -1,5 +1,3 @@
-import time
-
 import pytest
 
 from selenium.webdriver import Chrome, ChromeOptions
@@ -19,7 +17,6 @@ def driver():
     options.add_experimental_option('useAutomationExtension', False)
 
     driver = Chrome(options=options, service=service)
-    driver.maximize_window()
 
     stealth(driver,
             languages=["ru-RU", "ru"],
@@ -32,7 +29,6 @@ def driver():
 
     yield driver
 
-    time.sleep(25)
     driver.quit()
 
 

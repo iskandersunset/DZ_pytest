@@ -52,6 +52,7 @@ class LoginPage(BasePage):
 
     # Methods =============================
     def choose_category(self):
+
         self.click_close_button()
         self.click_geo_menu()
         self.click_city_select()
