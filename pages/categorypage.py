@@ -186,6 +186,7 @@ class CategoryPage(BasePage):
         self.assert_selected(self.get_proc_num_core())
         time.sleep(3)
         self.click_sort_by_price()
+        time.sleep(3)
         self.get_screenshot()
         print('=== Выбран следующий товар: ===')
         self.click_button_add_cart()
