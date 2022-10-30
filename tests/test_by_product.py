@@ -44,7 +44,7 @@ def test_by_processor(driver, setup):
     checkout_page.fill_personal_data()
 
     assert product == checkout_page.product_checkout_text(), f"Name product {product} does not match."
-    print('Наименование товара совпало с исходным')
+    print('Наименование товара совпало с исходным', product)
     assert (int(checkout_page.total_text().replace(' ', '')) - int(checkout_page.product_delivery_price_text())) == \
            int(product_price), f"Price product {product_price} does not match."
-    print('Цена товара корректна')
+    print('Цена товара корректна', product_price)
